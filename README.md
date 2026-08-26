@@ -33,9 +33,9 @@
 
 <div align="center">
 
-![Statistik GitHub Aisyah](https://github-readme-stats.vercel.app/api?username=aisyahnuris18&show_icons=true&theme=radical)
+![Statistik GitHub Aisyah](https://github-readme-stats.vercel.app/api?username=alyanurislamiyanti-wq&show_icons=true&theme=radical)
 
-[![Bahasa Teratas](https://github-readme-stats.vercel.app/api/top-langs/?username=aisyahnuris18&layout=compact&theme=radical)](https://github.com/aisyahnuris18)
+[![Bahasa Teratas](https://github-readme-stats.vercel.app/api/top-langs/?username=alyanurislamiyanti-wq&layout=compact&theme=radical)](https://github.com/alyanurislamiyanti-wq)
 
 </div>
 
@@ -43,7 +43,7 @@
 
 ## 📫 Hubungi Saya
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/aisyahnuris18)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/alyanurislamiyanti-wq)
 
 ---
 
@@ -61,6 +61,6 @@
 *Kalau suka dengan apa yang saya kerjakan, dukung saya dengan follow & star ya!* 😊
 *Semoga kita semua dimudahkan dalam belajar dan menjadi orang yang sukses, aamiin.* 🙏✨
 
-![Pengunjung](https://komarev.com/ghpvc/?username=aisyahnuris18&color=blueviolet&style=flat-square&label=Profile+Views)
+![Pengunjung](https://komarev.com/ghpvc/?username=alyanurislamiyanti-wq&color=blueviolet&style=flat-square&label=Profile+Views)
 
 </div>
