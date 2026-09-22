@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRGen - Generator QR Code Modern & Powerfull</title>
+    <meta name="description" content="Generate QR Code kustom dengan logo, warna, dan berbagai format data secara gratis dan cepat.">
+    
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <link href="https://unpkg.com/lucide-static@0.516.0/font/lucide.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style type="text/tailwindcss">
+    @layer theme {
+        :root {
+            --primary: #ff6f91;
+            --primary-hover: #f4517a;
+            --secondary: #fff1f6;
+            --bg-main: #fff9f2;
+            --card-bg: #ffffff;
+            --accent: #ffc857;
+            --mint: #b8f2e6;
+            --sky: #bde0fe;
+            --lavender: #d9c2ff;
+        }
+    }
+
+    @layer base {
+        body {
+            @apply text-slate-900 font-['Nunito',sans-serif];
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 12% 8%, rgba(255, 200, 87, .18) 0 5px, transparent 6px), radial-gradient(circle at 86% 22%, rgba(184, 242, 230, .22) 0 7px, transparent 8px), linear-gradient(135deg, rgba(255, 111, 145, .06), transparent 42%), linear-gradient(315deg, rgba(189, 224, 254, .12), transparent 48%);
+            background-size: 34px 34px, 48px 48px, auto, auto;
+        }
+    }
+
+    @layer components {
+        .btn {
+            @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2;
+        }
+        .btn-primary {
+            @apply bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] shadow-[0_5px_0_#d94e71] hover:shadow-[0_3px_0_#d94e71] active:translate-y-1 active:shadow-none;
+        }
+        .btn-outline {
+            @apply border-2 border-pink-200 bg-white text-slate-700 hover:bg-pink-50 hover:border-pink-300 active:scale-95;
+        }
+        .input-field {
+            @apply w-full px-4 py-3 rounded-2xl border-2 border-orange-100 bg-white/90 focus:ring-2 focus:ring-pink-200 focus:border-pink-300 outline-none transition-all;
+        }
+        .card {
+            @apply bg-white/95 rounded-[1.5rem] shadow-[0_10px_30px_rgba(244,81,122,.08)] border-2 border-white p-6;
+        }
+        .tab-btn {
+            @apply flex flex-col items-center gap-2 p-3 rounded-xl transition-all border border-transparent;
+        }
+        .tab-btn.active {
+            @apply bg-pink-50 border-pink-200 text-pink-600 shadow-sm;
+        }
+    }
+    .intro-screen {
+        background: #fff8f3;
+        animation: intro-in .55s ease-out both;
+    }
+    .intro-grid {
+        background-image: linear-gradient(rgba(226, 96, 127, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(226, 96, 127, .07) 1px, transparent 1px);
+        background-size: 42px 42px;
+        mask-image: linear-gradient(to bottom right, black, transparent 78%);
+        animation: grid-drift 18s linear infinite;
+    }
+    .intro-layout { min-height: min(620px, calc(100vh - 6rem)); }
+    .intro-item { opacity: 0; animation: item-rise .8s cubic-bezier(.2,.8,.2,1) forwards; }
+    .intro-delay-1 { animation-delay: .15s; }
+    .intro-delay-2 { animation-delay: .3s; }
+    .intro-delay-3 { animation-delay: .45s; }
+    .intro-delay-4 { animation-delay: .6s; }
+    .intro-delay-5 { animation-delay: .75s; }
+    .intro-preview { animation: preview-float 5s ease-in-out infinite; }
+    .intro-badge { animation: badge-float 3.8s ease-in-out infinite; }
+    .intro-accent { background: linear-gradient(90deg, #f4517a, #ff9b71, #f4517a); background-size: 220% auto; background-clip: text; -webkit-background-clip: text; color: transparent; animation: accent-shift 4s linear infinite; }
+    .intro-cta { animation: item-rise .8s cubic-bezier(.2,.8,.2,1) .6s forwards, cta-pulse 2.8s ease-in-out 1.6s infinite; }
+    .intro-scanline { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,111,145,.35), transparent); animation: scanline-drift 6s ease-in-out infinite; }
+    .qr-scan-beam { animation: qr-scan 2.8s ease-in-out infinite; }
+    .intro-qr { animation: qr-pulse 3.5s ease-in-out infinite; }
+    .intro-status { animation: status-blink 1.8s ease-in-out infinite; }
+    @keyframes intro-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes item-rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes preview-float { 0%, 100% { transform: translateY(0) rotate(1deg); } 50% { transform: translateY(-10px) rotate(-1deg); } }
+    @keyframes orbit-spin { to { transform: rotate(360deg); } }
+    @keyframes grid-drift { from { background-position: 0 0; } to { background-position: 42px 42px; } }
+    @keyframes badge-float { 0%, 100% { transform: translateY(0) rotate(1deg); } 50% { transform: translateY(-8px) rotate(-2deg); } }
+    @keyframes accent-shift { to { background-position: 220% center; } }
+    @keyframes cta-pulse { 0%, 100% { box-shadow: 0 5px 0 #d94e71, 0 0 0 0 rgba(244,81,122,.25); } 50% { box-shadow: 0 5px 0 #d94e71, 0 0 0 9px rgba(244,81,122,0); } }
+    @keyframes scanline-drift { 0%, 100% { transform: translateY(-30vh); opacity: 0; } 35%, 65% { opacity: 1; } 50% { transform: translateY(30vh); } }
+    @keyframes qr-scan { 0%, 100% { top: 1rem; opacity: .3; } 50% { top: calc(100% - 1rem); opacity: 1; } }
+    @keyframes qr-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(51,65,85,0); } 50% { box-shadow: 0 0 0 8px rgba(255,111,145,.08); } }
+    @keyframes status-blink { 0%, 100% { opacity: .45; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.2); } }
+    @media (max-width: 767px) {
+        .intro-screen { padding-left: 1.25rem; padding-right: 1.25rem; }
+        .intro-layout { min-height: auto; gap: 2.5rem; padding-top: 1rem; padding-bottom: 1rem; }
+        .intro-preview { transform: scale(.9); transform-origin: top center; margin-bottom: -2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { .intro-grid, .intro-item, .intro-preview, .intro-badge, .intro-accent, .intro-cta, .intro-scanline, .qr-scan-beam, .intro-qr, .intro-status, .qr-orbit { animation: none; } .intro-item { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel" src="components/Header.js"></script>
+    <script type="text/babel" src="components/Sidebar.js"></script>
+    <script type="text/babel" src="components/QRDisplay.js"></script>
+    <script type="text/babel" src="components/InputForm.js"></script>
+    <script type="text/babel" src="components/ScanModal.js"></script>
+    <script type="text/babel" src="utils/qrUtils.js"></script>
+    <script type="text/babel" src="app.js"></script>
+</body>
+</html>
